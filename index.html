@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vladimir Kalinic — Portfolio</title>
+  <meta name="description" content="Vladimir Kalinic — Developer portfolio showcasing projects and skills.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <!-- Loader -->
+  <div class="loader" id="loader">
+    <div class="loader__inner">
+      <span class="loader__counter" id="loaderCounter">0</span>
+      <span class="loader__percent">%</span>
+    </div>
+    <div class="loader__bar">
+      <div class="loader__progress" id="loaderProgress"></div>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header class="header" id="header">
+    <a href="#" class="header__logo">VK</a>
+    <nav class="header__nav">
+      <a href="#work" class="header__link">Work</a>
+      <a href="#contact" class="header__link">Contact</a>
+    </nav>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero" id="hero">
+    <div class="hero__content">
+      <div class="hero__greeting reveal">
+        <span class="hero__line"></span>
+        <span>Hello, I'm</span>
+      </div>
+      <h1 class="hero__name reveal">Vladimir<br>Kalinic</h1>
+      <p class="hero__title reveal">Developer & Creator</p>
+      <div class="hero__badges reveal">
+        <span class="badge badge--accent">Available for work</span>
+        <span class="badge">Based in Serbia</span>
+      </div>
+      <p class="hero__quote reveal">
+        &ldquo; Turning ideas into digital experiences, one line at a time. &rdquo;
+      </p>
+    </div>
+    <div class="hero__scroll">
+      <span>Scroll</span>
+      <div class="hero__scroll-line"></div>
+    </div>
+  </section>
+
+  <!-- Skills Marquee -->
+  <section class="marquee-section">
+    <div class="marquee">
+      <div class="marquee__track">
+        <span class="marquee__item">Azure</span>
+        <span class="marquee__sep">&bull;</span>
+        <span class="marquee__item">Databricks</span>
+        <span class="marquee__sep">&bull;</span>
+        <span class="marquee__item">Docker</span>
+        <span class="marquee__sep">&bull;</span>
+        <span class="marquee__item">HTML & CSS</span>
+        <span class="marquee__sep">&bull;</span>
+        <span class="marquee__item">Git & CI/CD</span>
+        <span class="marquee__sep">&bull;</span>
+        <span class="marquee__item">SQL</span>
+        <span class="marquee__sep">&bull;</span>
+        <span class="marquee__item">JavaScript</span>
+        <span class="marquee__sep">&bull;</span>
+        <span class="marquee__item">Node.js</span>
+        <span class="marquee__sep">&bull;</span>
+        <!-- Duplicate for seamless loop -->
+        <span class="marquee__item">Azure</span>
+        <span class="marquee__sep">&bull;</span>
+        <span class="marquee__item">Databricks</span>
+        <span class="marquee__sep">&bull;</span>
+        <span class="marquee__item">Docker</span>
+        <span class="marquee__sep">&bull;</span>
+        <span class="marquee__item">HTML & CSS</span>
+        <span class="marquee__sep">&bull;</span>
+        <span class="marquee__item">Git & CI/CD</span>
+        <span class="marquee__sep">&bull;</span>
+        <span class="marquee__item">SQL</span>
+        <span class="marquee__sep">&bull;</span>
+        <span class="marquee__item">JavaScript</span>
+        <span class="marquee__sep">&bull;</span>
+        <span class="marquee__item">Node.js</span>
+        <span class="marquee__sep">&bull;</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Projects -->
+  <section class="projects" id="work">
+    <div class="projects__header reveal">
+      <h2 class="section-title">Selected Projects</h2>
+      <p class="section-subtitle">A few things I've been working on</p>
+    </div>
+
+    <div class="projects__grid">
+      <article class="project-card reveal">
+        <div class="project-card__number">01</div>
+        <div class="project-card__preview">
+          <iframe src="demo/expanse/index.html" title="Expanse App Preview" loading="lazy"></iframe>
+          <div class="project-card__overlay">
+            <a href="demo/expanse/index.html" target="_blank" rel="noopener">Open Full Demo</a>
+          </div>
+        </div>
+        <div class="project-card__info">
+          <span class="project-card__year">2025</span>
+          <span class="project-card__tag">Web App</span>
+        </div>
+        <h3 class="project-card__title">BudgetBliss</h3>
+        <p class="project-card__desc">A personal finance tracker with dashboard, transactions, categories, and a rewards system. Built with React 19 and Tailwind CSS.</p>
+        <a href="demo/expanse/index.html" target="_blank" rel="noopener" class="project-card__link">Live Demo &rarr;</a>
+      </article>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section class="contact" id="contact">
+    <div class="contact__inner reveal">
+      <h2 class="contact__heading">Let's work<br>together</h2>
+      <p class="contact__text">Got a project in mind? I'd love to hear about it.</p>
+      <a href="mailto:hello@vladimirkalinic.com" class="contact__cta">Get in touch &rarr;</a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer__inner">
+      <span class="footer__copy">&copy; 2025 Vladimir Kalinic</span>
+      <div class="footer__links">
+        <a href="https://github.com/kale87" target="_blank" rel="noopener">GitHub</a>
+        <a href="https://linkedin.com" target="_blank" rel="noopener">LinkedIn</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
