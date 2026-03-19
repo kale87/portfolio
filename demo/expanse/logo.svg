@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <defs>
+    <radialGradient id="glow" cx="38%" cy="30%" r="68%" gradientUnits="userSpaceOnUse"
+                    x1="0" y1="0" x2="512" y2="512">
+      <stop offset="0%"   stop-color="#f59e0b" stop-opacity="0.22"/>
+      <stop offset="100%" stop-color="#0f0f13" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="512" height="512" rx="96" fill="#0f0f13"/>
+  <!-- Gold glow overlay -->
+  <rect width="512" height="512" rx="96" fill="url(#glow)"/>
+
+  <!-- Gold dot accent (mirrors the app header dot) -->
+  <circle cx="256" cy="138" r="22" fill="#f59e0b"/>
+
+  <!-- BB monogram -->
+  <text
+    x="256" y="376"
+    text-anchor="middle"
+    font-family="'Courier New', 'Courier', monospace"
+    font-weight="bold"
+    font-size="214"
+    fill="#f59e0b"
+    letter-spacing="-8"
+  >BB</text>
+
+  <!-- Subtle bottom accent line -->
+  <rect x="130" y="424" width="252" height="7" rx="3.5" fill="#f59e0b" opacity="0.22"/>
+</svg>
