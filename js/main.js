@@ -78,14 +78,171 @@
     });
   });
 
-  // ===== Pause marquee on hover =====
-  const marqueeTrack = document.querySelector('.marquee__track');
-  if (marqueeTrack) {
-    marqueeTrack.addEventListener('mouseenter', () => {
-      marqueeTrack.style.animationPlayState = 'paused';
-    });
-    marqueeTrack.addEventListener('mouseleave', () => {
-      marqueeTrack.style.animationPlayState = 'running';
+  // ===== Skills: continuous loop, pause on hover =====
+  const skillsRunner = document.querySelector('.skills-runner');
+  const skillsTrack  = document.querySelector('.skills-track');
+  if (skillsRunner && skillsTrack) {
+    document.fonts.ready.then(() => {
+      const originalW = skillsTrack.scrollWidth;
+
+      // Clone items until track is > 3x viewport wide — guarantees no visible gap
+      while (skillsTrack.scrollWidth < window.innerWidth * 3) {
+        Array.from(skillsTrack.children).forEach((child) => {
+          const clone = child.cloneNode(true);
+          clone.setAttribute('aria-hidden', 'true');
+          skillsTrack.appendChild(clone);
+        });
+      }
+
+      let pos    = 0;
+      let paused = false;
+      const SPEED = 0.55;
+
+      skillsRunner.addEventListener('mouseenter', () => { paused = true; });
+      skillsRunner.addEventListener('mouseleave', () => { paused = false; });
+
+      const tick = () => {
+        if (!paused) {
+          pos -= SPEED;
+          if (pos <= -originalW) pos += originalW;
+          skillsTrack.style.transform = `translateX(${pos}px)`;
+        }
+        requestAnimationFrame(tick);
+      };
+
+      requestAnimationFrame(tick);
     });
   }
+
+  // ===== Animated Background Particles =====
+  const canvas = document.getElementById('bg-canvas');
+  const ctx = canvas.getContext('2d');
+  const ACCENT   = '212, 168, 83';  // matches --accent
+  const ACCENT2  = '180, 140, 220'; // soft purple complement
+  const COUNT    = window.innerWidth < 768 ? 180 : 320;
+  const CONNECT  = 130;             // max connection distance (px)
+  const REPEL    = 130;             // mouse repel radius (px)
+  const MAX_SPD  = 5;               // max particle speed after repel
+  const SPRING   = 0.015;           // how strongly particles return to origin
+  const DAMP     = 0.95;            // velocity damping (higher = slower return)
+  let particles  = [];
+  let mouse      = { x: -9999, y: -9999 };
+  let raf;
+
+  function resize() {
+    canvas.width  = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+
+  function mkParticle() {
+    const x = Math.random() * canvas.width;
+    const y = Math.random() * canvas.height;
+    const gold = Math.random() > 0.35;
+    return {
+      x, y,
+      vx: 0, vy: 0,
+      // Home position: drifts slowly so particles still wander gently
+      ox: x, oy: y,
+      ovx: (Math.random() - 0.5) * 0.22,
+      ovy: (Math.random() - 0.5) * 0.22,
+      r:  Math.random() * 1.4 + 0.4,
+      color: gold ? ACCENT : ACCENT2,
+    };
+  }
+
+  function init() {
+    particles = Array.from({ length: COUNT }, mkParticle);
+  }
+
+  function update() {
+    particles.forEach((p) => {
+      // 1. Drift the home position slowly
+      p.ox += p.ovx;
+      p.oy += p.ovy;
+      if (p.ox < 0 || p.ox > canvas.width)  p.ovx *= -1;
+      if (p.oy < 0 || p.oy > canvas.height) p.ovy *= -1;
+
+      // 2. Mouse repel — shoot particles away from cursor
+      const dx = p.x - mouse.x;
+      const dy = p.y - mouse.y;
+      const d  = Math.hypot(dx, dy);
+      if (d < REPEL && d > 0) {
+        const f = ((REPEL - d) / REPEL) * 3.2;
+        p.vx += (dx / d) * f * 0.4;
+        p.vy += (dy / d) * f * 0.4;
+        const spd = Math.hypot(p.vx, p.vy);
+        if (spd > MAX_SPD) { p.vx = (p.vx / spd) * MAX_SPD; p.vy = (p.vy / spd) * MAX_SPD; }
+      }
+
+      // 3. Spring: pull back toward home position
+      p.vx += (p.ox - p.x) * SPRING;
+      p.vy += (p.oy - p.y) * SPRING;
+
+      // 4. Damp and move
+      p.vx *= DAMP;
+      p.vy *= DAMP;
+      p.x  += p.vx;
+      p.y  += p.vy;
+    });
+  }
+
+  function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    // Connections
+    for (let i = 0; i < particles.length; i++) {
+      for (let j = i + 1; j < particles.length; j++) {
+        const dx   = particles[i].x - particles[j].x;
+        const dy   = particles[i].y - particles[j].y;
+        const dist = Math.hypot(dx, dy);
+        if (dist < CONNECT) {
+          const alpha = (1 - dist / CONNECT) * 0.18;
+          ctx.beginPath();
+          ctx.strokeStyle = `rgba(${particles[i].color}, ${alpha})`;
+          ctx.lineWidth   = 0.6;
+          ctx.moveTo(particles[i].x, particles[i].y);
+          ctx.lineTo(particles[j].x, particles[j].y);
+          ctx.stroke();
+        }
+      }
+    }
+
+    // Dots
+    particles.forEach((p) => {
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(${p.color}, 0.55)`;
+      ctx.fill();
+    });
+  }
+
+  function loop() {
+    update();
+    draw();
+    raf = requestAnimationFrame(loop);
+  }
+
+  // Track mouse position for repel effect
+  document.addEventListener('mousemove', (e) => {
+    mouse.x = e.clientX;
+    mouse.y = e.clientY;
+  });
+  document.addEventListener('mouseleave', () => {
+    mouse.x = -9999;
+    mouse.y = -9999;
+  });
+
+  window.addEventListener('resize', () => {
+    cancelAnimationFrame(raf);
+    resize();
+    init();
+    loop();
+  });
+
+  // Start after loader finishes so it fades in cleanly
+  resize();
+  init();
+  loop();
+  // Fade canvas in once loader is done (loader takes ~1.8s + 0.4s delay)
+  setTimeout(() => canvas.classList.add('visible'), 2400);
 })();

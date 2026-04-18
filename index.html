@@ -11,6 +11,9 @@
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+  <!-- Animated background canvas -->
+  <canvas id="bg-canvas" aria-hidden="true"></canvas>
+
   <!-- Loader -->
   <div class="loader" id="loader">
     <div class="loader__inner">
@@ -54,43 +57,23 @@
     </div>
   </section>
 
-  <!-- Skills Marquee -->
-  <section class="marquee-section">
-    <div class="marquee">
-      <div class="marquee__track">
-        <span class="marquee__item">Azure</span>
-        <span class="marquee__sep">&bull;</span>
-        <span class="marquee__item">Databricks</span>
-        <span class="marquee__sep">&bull;</span>
-        <span class="marquee__item">Docker</span>
-        <span class="marquee__sep">&bull;</span>
-        <span class="marquee__item">HTML & CSS</span>
-        <span class="marquee__sep">&bull;</span>
-        <span class="marquee__item">Git & CI/CD</span>
-        <span class="marquee__sep">&bull;</span>
-        <span class="marquee__item">SQL</span>
-        <span class="marquee__sep">&bull;</span>
-        <span class="marquee__item">JavaScript</span>
-        <span class="marquee__sep">&bull;</span>
-        <span class="marquee__item">Node.js</span>
-        <span class="marquee__sep">&bull;</span>
-        <!-- Duplicate for seamless loop -->
-        <span class="marquee__item">Azure</span>
-        <span class="marquee__sep">&bull;</span>
-        <span class="marquee__item">Databricks</span>
-        <span class="marquee__sep">&bull;</span>
-        <span class="marquee__item">Docker</span>
-        <span class="marquee__sep">&bull;</span>
-        <span class="marquee__item">HTML & CSS</span>
-        <span class="marquee__sep">&bull;</span>
-        <span class="marquee__item">Git & CI/CD</span>
-        <span class="marquee__sep">&bull;</span>
-        <span class="marquee__item">SQL</span>
-        <span class="marquee__sep">&bull;</span>
-        <span class="marquee__item">JavaScript</span>
-        <span class="marquee__sep">&bull;</span>
-        <span class="marquee__item">Node.js</span>
-        <span class="marquee__sep">&bull;</span>
+  <!-- Skills -->
+  <section class="skills-section">
+    <p class="skills-label">Technologies &amp; tools</p>
+    <div class="skills-runner">
+      <div class="skills-track">
+        <span class="skill-tag">Azure</span>
+        <span class="skill-tag">Databricks</span>
+        <span class="skill-tag">Docker</span>
+        <span class="skill-tag">JavaScript</span>
+        <span class="skill-tag">Node.js</span>
+        <span class="skill-tag">Python</span>
+        <span class="skill-tag">SQL</span>
+        <span class="skill-tag">REST APIs</span>
+        <span class="skill-tag">HTML &amp; CSS</span>
+        <span class="skill-tag">Git &amp; CI/CD</span>
+        <span class="skill-tag">Power BI</span>
+        <span class="skill-tag">Linux</span>
       </div>
     </div>
   </section>
@@ -124,10 +107,12 @@
 
   <!-- Contact -->
   <section class="contact" id="contact">
+    <div class="contact__ghost" aria-hidden="true">LET'S WORK</div>
     <div class="contact__inner reveal">
+      <span class="contact__label">Get in touch</span>
       <h2 class="contact__heading">Let's work<br>together</h2>
       <p class="contact__text">Got a project in mind? I'd love to hear about it.</p>
-      <a href="mailto:hello@vladimirkalinic.com" class="contact__cta">Get in touch &rarr;</a>
+      <a href="mailto:hello@vladimirkalinic.com" class="contact__cta">Say hello &rarr;</a>
     </div>
   </section>
 
